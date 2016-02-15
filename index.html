@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<title>Mis Vinos</title>
+<meta name="description" content="Proyecto Application HTML5 BIOS 2013" />
+<meta name="keywords" content="HTML5,CSS3" />
+<meta name="author" content="HTML" />
+<meta charset="utf-8" />
+<!-- google fonts -->
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+
+<!-- interpretar etiquetas semáticas HTML5 en IE6+ y versiones "vintage" de otros browsers -->
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js";></script>
+<![endif]-->
+
+<!-- Centrar el contenido-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+
+<!--Habilita FullAppMode para iOS-->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<!-- JQuery para móbil -->
+
+<link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" type="text/css"/>
+<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="js/jquery.mobile-1.3.1.min.js" type="text/javascript"></script>
+<script src="js/slider.js"></script>
+
+<!-- API de Google Maps -->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
+</style>
+
+</head>
+
+	<header>		
+	</header>
+	
+	<body class="wide">
+
+	<div id="container">
+	
+	<div id="manage" data-role="page">
+		<div data-role="header">		
+			<h1>Mis Vinos</h1>
+				<div data-role="navbar" data-iconpos="bottom">		
+			
+					<ul>
+						<li><a data-icon="star" href="#activity">Actividad</a></li>
+						<li><a data-icon="grid" class="ui-btn-active" href="#manage">Administrar</a></li>
+						<li><a data-icon="search" href="#find">Buscar</a></li>
+						<li><a data-icon="info" href="#search">Informacion</a></li>
+					</ul>
+
+				</div>
+		</div>
+
+	<div data-role="content">
+		
+		<h1 align="center">Agregar Vino</h1>
+		
+			<div class="success" id="success-msg" style="display:none;">
+			El Vino se agrego con exito!		
+			</div>
+		
+			<div class="error" id="error-msg" style="display:none;">
+			Hay algun error, revisa los datos!
+			</div>		
+		
+		<form id="manage-form" data-ajax="false" onsubmit="handleForm(); return false;">
+		
+		<label for="wine_name">Nombre del Vino:</label>
+		<input type="text" name="wine_name" id="wine_name" data-mini="true" required/>
+		
+		<label for="winery_name">Donde compraste el Vino?:</label>
+		<input type="text" name="winery_name" id="winery_name" data-mini="true" required/>
+		
+		<label for="color_id" class="select">Clase de Vino:</label>
+		<select name="wine_class" id="class_id" data-mini="true" required>
+		<option value="Tinto">Tinto</option>
+		<option value="Blanco">Blanco</option>
+		<option value="Rosado">Rosado</option>
+		<option value="Espumeante">Espumeante</option>
+		</select>
+		
+		<label for="wine_description">Descripcion del Vino:</label>
+		<textarea name="wine_description" id="wine_description"></textarea>
+		
+		<label for="is_add">Agregar Vino?</label>
+		<input type="checkbox" name="is_add" onChange="toggleBox(this);" id="is_add" class="custom"/>
+		
+		<div id="cellar_ques" style="display:none;">
+		<label for="cellar_qty">Cantidad:</label>
+		<input type="text" name="cellar_qty" id="cellar_qty" value="" required/>
+		
+		<label for="cellar_description">Notas:</label>
+		<textarea name="cellar_description" id="cellar_description"></textarea>
+		
+		<button>Agregar</button>
+		
+		</div>
+			
+		
+		</form>
+
+<div data-role="footer" data-position="fixed"> 
+	<h4>Proyecto BIOS 2013 ** Autor: Jorge E. Lopez ** Contacto: george4891@gmail.com</h4> 
+</div> 
+	
+	</div>
+	
+</div>
+
+<div id="find" data-role="page">
+    <div data-role="header" data-position="inline">
+      <h1>Buscar</h1>
+		<a href="javascript:void(0);"data-role="button" onclick="localizame();" class="ui-btn-right" data-icon="refresh">Refrescar</a>	  
+			<div data-role="navbar" data-iconpos="bottom">
+        <ul>
+            <li><a data-icon="star" href="#activity">Actividad</a></li>
+            <li><a data-icon="grid" href="#manage">Administrar</a></li>
+            <li><a data-icon="search" class="ui-btn-active" href="#find">Buscar</a></li>
+            <li><a data-icon="info" href="#search">Informacion</a></li>		
+		</ul>
+			</div>
+    </div>
+
+        <div data-role="content">
+						
+	<section>
+		<article>
+			<div id="map_canvas">
+			</div>
+			<script type="text/javascript">
+				var map;
+				var latitud;
+				var longitud;
+				
+				$(document).ready(function() {
+					localizame();  
+				});
+				
+				function localizame() {
+					if (navigator.geolocation) { 
+					navigator.geolocation.getCurrentPosition(coordenadas, errores);
+					}else{
+						alert('Tu navegador no soporta geolocalización!');
+					}
+				}
+				
+				function coordenadas(position) {
+					latitud = position.coords.latitude; 
+					longitud = position.coords.longitude; 
+					cargarMapa();
+				}
+				
+				function errores(err) {
+					
+					if (err.code == 0) {
+					  alert("Se ha producido un error");
+					}
+					if (err.code == 1) {
+					  alert("Debes aceptar compartir tu posición");
+					}
+					if (err.code == 2) {
+					  alert("No se puede obtener la posición actual");
+					}
+					if (err.code == 3) {
+					  alert("Se ha superado el tiempo de espera");
+					}
+				}
+				 
+				function cargarMapa() {
+					var latlon = new google.maps.LatLng(latitud,longitud);
+					var myOptions = {
+						zoom: 17,
+						center: latlon, 
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+					map = new google.maps.Map($("#map_canvas").get(0), myOptions);
+					
+					var coorMarcador = new google.maps.LatLng(latitud,longitud); 
+						
+					var marcador = new google.maps.Marker({
+						
+						position: coorMarcador, 
+						map: map,
+						title: "Estoy aquí" 
+					});
+				}
+			</script>
+			
+		</article>
+	</section>			
+         </div>
+		 
+ <div data-role="footer" data-position="fixed"> 
+	<h4>Proyecto BIOS 2013 ** Autor: Jorge E. Lopez ** Contacto: george4891@gmail.com</h4> 
+</div> 
+
+</div>	
+
+<div id="activity" data-role="page">
+    <div data-role="header" data-position="inline">
+      <h1>Lista de Vinos</h1>
+	  
+      <div data-role="navbar" data-iconpos="bottom">
+        <ul>
+            <li><a data-icon="star" class="ui-btn-active" href="#activity">Actividad</a></li>
+            <li><a data-icon="grid" href="#manage">Administrar</a></li>
+            <li><a data-icon="search" href="#find">Buscar</a></li>
+            <li><a data-icon="info" href="#search">Informacion</a></li>
+		
+		</ul>
+      </div>
+    </div>
+
+<div data-role="content">
+
+<div data-demo-html="true">
+
+<h3><div id="cantidadvinos" name="cantidadvinos"></div></h3>
+
+<ul data-role="listview" data-filter="true" data-filter-placeholder="Filtrar Vino..." data-inset="true" id="milistita">
+
+</ul>
+
+<script>
+var db;
+$(document).ready(function(){
+	db = openDatabase('misVinos', '1.0', 'My Corks Database', 2 * 1024 * 1024);
+		       	
+		db.transaction(function (tx) {		
+		tx.executeSql('SELECT * FROM wines',[], function(tx, results){
+		var len = results.rows.length, i;
+		var msg = "<p>Vinos Agregados: " + len + "</p>";
+		var li = ""
+		document.querySelector('#cantidadvinos').innerHTML += msg;
+		
+		for (i=0; i<len; i++){
+		li+= "<li>"+ "El vino "+ results.rows.item(i).wine_name + " "+ results.rows.item(i).class_name + " lo compraste en " + results.rows.item(i).winery_name +"</li>"
+		$('#milistita').html(li).promise().done(function(){
+		//$(this).listview().listview('refresh');
+		$(this).trigger("create");
+	});
+		}
+		
+	}, null);
+});
+});
+		
+
+
+</script>
+			
+</div>
+
+    </div>
+	
+	<div data-role="footer" data-position="fixed"> 
+	<h4>Proyecto BIOS 2013 ** Autor: Jorge E. Lopez ** Contacto: george4891@gmail.com</h4> 
+</div> 
+	
+</div>
+
+<div id="search" data-role="page">
+    <div data-role="header" data-position="inline">
+      <h1>Informacion</h1>
+	  
+      <div data-role="navbar" data-iconpos="bottom">
+        <ul>
+            <li><a data-icon="star" href="#activity">Actividad</a></li>
+            <li><a data-icon="grid" href="#manage">Administrar</a></li>
+            <li><a data-icon="search" href="#find">Buscar</a></li>
+            <li><a data-icon="info" class="ui-btn-active" href="#search">Informacion</a></li>
+		
+		</ul>
+		
+      </div>
+    </div>
+
+        <div data-role="content">
+			
+			<section>
+		<article>
+			<div class="sliderContainer">
+				<a href="#siguiente" class="next" title="Next"></a>
+				<a href="#anterior" class="prev" title="Back"></a>
+				<div id="slider">
+				  <div class="slidesContainer">
+					  <div class="slide"><img src="images/img1.png" /></div>
+					  <div class="slide"><img src="images/img2.jpg" /></div>
+					  <div class="slide"><img src="images/img3.png" /></div>
+					  <div class="slide"><img src="images/img4.png" /></div>
+					  <div class="slide"><img src="images/img5.png" /></div>
+				  </div> 
+				</div> 
+			</div> 
+		</article>
+   </section>
+   
+   
+   
+   <div style="font-family:verdana;padding:20px;border-radius:10px;border:10px solid #8A2BE2;">
+   Se da el nombre de "vino" unicamente al liquido resultante de la fermentacion alcoholica, total o parcial, del zumo de uvas, sin adicion de ninguna sustancia. En muchas legislaciones se considera solo como vino a la bebida fermentada obtenida de Vitis vinifera, pese a que se obtienen bebidas semejantes de otras especies como la Vitis labrusca, Vitis rupestris, etc. El conocimiento de la ciencia particular de la elaboracion del vino se denomina enologia (sin considerar los procesos de cultivo de la vid). La ciencia que trata tan solo de la biologia de la vid, asi como de su cultivo, se denomina. ampelologia.
+   </div>
+   <p>
+	Fuente: Wikipedia.org
+   </p>
+   
+   
+	</div>
+
+<div data-role="footer" data-position="fixed"> 
+	<h4>Proyecto BIOS 2013 ** Autor: Jorge E. Lopez ** Contacto: george4891@gmail.com</h4> 
+</div> 	
+			
+</div>
+	
+</div>
+
+
+<!-- Scripts -->
+
+<script type="text/javascript" language="javascript">
+
+// Crear Base de datos. NOTA: No funciona en IE, FF.
+
+var db;
+$(document).ready(function(){
+      db = openDatabase('misVinos', '1.0', 'My Corks Database', 2 * 1024 * 1024);
+	  
+		//Crear la tabla	
+	    db.transaction(function (tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS wines (wine_id INTEGER PRIMARY KEY AUTOINCREMENT, wine_name,wine_description, class_name, created_at, winery_name, cellar_qty, cellar_description)', null, sR, fR);
+	
+			$("manage-form").submit(function(){
+			return false;
+			});
+		
+		});
+
+	  
+});
+
+// Funcion para mostar pop-up en caso de error
+function sR(a,b){
+      // The query was successfully!
+	  }
+
+function fR(a,b){
+      // Oops! Hay algo malo, y no sé que es
+      alert(b.message);
+	  alert("Hay algo malo, y no sé que es");
+}
+
+// Funcion para aplicar transiciones
+
+function slideLoc(from, to)
+    {
+
+            var myClasses = document.getElementByID("from").className.split('');
+            if (myClasses.indexOf('page-left') > 0)
+            {
+                    document.getElementByID("from").className = "page trans page-right";
+            }
+            else
+            {
+                    document.getElementByID("from").className = "page trans page-left";
+            }
+            document.getElementByID("to").addClass("page trans page-center");
+    }
+
+	//Mostrar campos despues de seleccionar cheque de agregar vinos
+	function toggleBox(a){
+		if($(a).is(':checked'))
+		{
+			$("#cellar_ques").show();
+			$("#cellar_ques input").addClass("required");
+		}
+			else
+		{
+			$("#cellar_ques").hide();
+			$("#cellar_ques input").removeClass("required");
+		}
+	};
+	
+// Insertar Datos a la tabla
+	function handleForm(){
+	
+				var start = new Date().getTime();
+						
+				db.transaction(function(mx){
+				mx.executeSql('INSERT INTO wines (wine_name, winery_name, wine_description, cellar_qty, cellar_description, class_name, created_at) VALUES(?,?,?,?,?,?,?)',[wine_name.value, winery_name.value, wine_description.value, cellar_qty.value, cellar_description.value, class_id.value, start]);
+				});
+				
+		window.location.reload();
+	
+	}
+	
+/*Funcion para refrescar posicion de mapa en Buscar
+
+function refreshLocation(){
+	navigator.geolocation.getCurrentPosition(successPosition, errorPosition);
+}
+
+*/								
+
+
+</script>
+
+</body>
+
+</html>

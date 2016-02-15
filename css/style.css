@@ -1,0 +1,255 @@
+/* reset  */
+
+	html, body, div, span, object, iframe, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd,/* ol, ul, li, */fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, menu, nav, section, menu, time, mark, audio, video {
+
+		margin:0;
+		
+		padding:0;
+
+		border:0;
+
+		font-size:100%;
+
+		vertical-align:baseline;
+
+		background:transparent;
+
+	}  
+
+	body { line-height:1; }  
+
+	article, aside, dialog, figure, footer, header, hgroup, nav, section { display:block; }  
+
+	nav ul { list-style:none; } blockquote, q { quotes:none; } 
+
+	a { margin:0; padding:0; border:0; font-size:100%; vertical-align:baseline; background:transparent; }
+
+	ins { background-color:#ff9; color:#000; text-decoration:none;}  
+
+	mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }  
+
+	del { text-decoration: line-through;}  
+
+	abbr[title], dfn[title] { border-bottom:1px dotted #000; cursor:help; }  
+
+	table { border-collapse:collapse; border-spacing:0; }  
+
+	hr { display:block; height:1px; border:0; border-top:1px solid #cccccc; margin:1em 0; padding:0; }  
+
+	input, select { vertical-align:middle;}
+
+/* #reset */
+
+
+html, body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+
+body {
+    width: 100%;
+    font-family: 'Fjalla One', sans-serif;
+    font-size:14px;
+    font-weight:400;
+	color:#949799;
+    line-height:25px;
+    text-transform:uppercase;
+	background: #333c48;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#333c48');
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#000000', endColorstr='#333c48')" ;
+	background: linear-gradient( top, #000000,#333c48) #333c48 no-repeat;
+	background: -ms-linear-gradient( top, #000000,#333c48) #333c48 no-repeat;
+	background: -webkit-linear-gradient( top, #000000,#333c48) #333c48 no-repeat;
+	background: -moz-linear-gradient( top, #000000,#333c48) #333c48 no-repeat;
+	background: -o-linear-gradient( top, #000000,#333c48) #333c48 no-repeat;
+	
+}
+    overflow: scroll;  
+
+}
+*:first-child+html body {	
+	overflow: visible;
+}
+
+
+
+p {
+    font-size:14px;
+    font-weight:400;
+    color:#949799;
+    line-height:25px;
+    padding:0px;
+    margin:10px 0px 0px 0px; 
+
+}
+
+
+
+h2{
+    font-size:17px;
+	font-weight:400;
+    padding:0;
+    margin:0px 0px 20px 0px;
+    color:#c3c3c3;
+    line-height:28px;          
+}
+
+
+h3{
+    font-size:19px;
+    font-weight:400;
+    padding:0;
+    margin:20px 0px 0px 0px;
+    color:#c3c3c3;
+    line-height:28px; 
+}
+
+
+h4 {
+    font-size:12px;
+    font-weight:400;
+    padding:0;
+    margin:0;
+    color:#717375;
+    line-height:28px; 
+}
+
+
+#container {
+   position:relative;   
+   margin:auto;
+   /*width:1015px;*/
+   width:100%;
+   min-height:100%;
+   background:url(../body/mainShadow.png) bottom repeat-y;
+   
+}
+
+header {
+
+       /*position:relative;
+       margin:auto;
+       width:911px;
+       height:112px;
+       padding:31px 37px 0px 37px;
+       background:#070a0e;
+	   */
+	   
+	position: fixed;
+	top: 0; 
+	left: 0;
+    width: 100%; 
+	height: 20px; 
+	font-size: 20px
+}
+
+nav  {
+	display: block;
+	width: 100%;
+	overflow: hidden;
+}
+
+nav ul {
+	margin: 80px 0 20px 0;
+	padding: .7em;
+	float: left;
+	list-style: none;
+	background: #444;
+	background: rgba(0,0,0,.2);
+	-moz-border-radius: .5em;
+	-webkit-border-radius: .5em;
+	border-radius: .5em;    
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,.2), 0 2px 1px rgba(0,0,0,.8) inset;
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,.2), 0 2px 1px rgba(0,0,0,.8) inset;
+	box-shadow: 0 1px 0 rgba(255,255,255,.2), 0 2px 1px rgba(0,0,0,.8) inset; 
+}
+
+nav li {
+	float:left;
+}
+
+nav a {
+	float:left;
+	padding: .8em 1.5em;
+	text-decoration: none;
+	color: #555;
+	text-shadow: 0 1px 0 rgba(255,255,255,.5);
+	font: bold 1.1em/1 'trebuchet MS', Arial, Helvetica;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #fff #ccc #999 #eee;
+	background: #c1c1c1;
+	background: -moz-linear-gradient(#f5f5f5, #c1c1c1);
+	background: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#c1c1c1));
+	background: -webkit-linear-gradient(#f5f5f5, #c1c1c1);
+	background: -o-linear-gradient(#f5f5f5, #c1c1c1);
+	background: -ms-linear-gradient(#f5f5f5, #c1c1c1);
+	background: linear-gradient(#f5f5f5, #c1c1c1);            
+ }
+ 
+nav a:hover, nav a:focus {
+	outline: 0;
+	color: #fff;
+	text-shadow: 0 1px 0 rgba(0,0,0,.2);
+	background: #fac754;
+	background: -moz-linear-gradient(#fac754, #f8ac00);
+	background: -webkit-gradient(linear, left top, left bottom, from(#fac754), to(#f8ac00));
+	background: -webkit-linear-gradient(#fac754, #f8ac00);
+	background: -o-linear-gradient(#fac754, #f8ac00);
+	background: -ms-linear-gradient(#fac754, #f8ac00);
+	background: linear-gradient(#fac754, #f8ac00);
+}
+
+nav a:active {
+	-moz-box-shadow: 0 0 2px 2px rgba(0,0,0,.3) inset;
+	-webkit-box-shadow: 0 0 2px 2px rgba(0,0,0,.3) inset;
+	box-shadow: 0 0 2px 2px rgba(0,0,0,.3) inset;
+}
+ 
+nav li:first-child a {
+	border-left: 0;
+	-moz-border-radius: 4px 0 0 4px;
+	-webkit-border-radius: 4px 0 0 4px;
+	border-radius: 4px 0 0 4px;            
+}
+
+nav li:last-child a {
+	border-right: 0;
+	-moz-border-radius: 0 4px 4px 0;
+	-webkit-border-radius: 0 4px 4px 0;
+	border-radius: 0 4px 4px 0;            
+}
+
+.page{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	transform: translate3d(0,0,0);	
+	-webkit-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+
+}
+
+.trans{
+-moz-transition-duration: .5s;
+-webkit-transition-duration: .5s;
+-ms-transition-duration: .5s;
+-o-transition-duration: .5s;
+}
+
+
+footer {
+	position:absolute;
+       	bottom:0;
+       	left:15px;
+       	width:911px;
+       	padding:19px 37px 0px 37px;
+       	min-height:103px;    Height of the footer 
+       	background:#070a0e;
+	}
+
+		

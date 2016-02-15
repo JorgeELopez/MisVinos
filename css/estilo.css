@@ -1,0 +1,30 @@
+#slider {
+					position: relative;
+					width: 500px;
+					height: 375px;
+					margin: auto;
+					background: #fff;
+					border: 5px solid #FFF;
+					overflow: hidden;		
+				}
+					#slider .slide{
+						float: left;
+						width: 500px;
+						height: 375px;	
+					}
+				.prev, .next{
+					display: block;
+					height: 48px;
+					width: 48px;
+					position: absolute;
+					top: 147px;
+					z-index:100;
+				}
+				.prev{
+					background: url('../imgs/back.png') no-repeat;
+					left: 0;
+				}
+				.next{
+					background: url('../imgs/next.png') no-repeat;
+					right: 0;
+				}
